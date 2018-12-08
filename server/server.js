@@ -10,19 +10,20 @@ const port = process.env.PORT || 4000;
 const server = http.createServer(app);
 const io = socketIO(server);
 
-app.use(express.static(publicPath));
+app.use(express.static(publicPath)); 
 
 io.on('connection', (socket) => {
     console.log('New User connected');
 
-    socket.emit('newMessage', {
-        from: 'jamui',
-        text: 'Been a long while',
-        createdAt: new Date()
-    });
-
     socket.on('createMessage', (message) => {
-        console.log(message);
+        console.log('createMessage', message);
+
+        // Broadcast to everyone that is connected 
+        io.emit('newMessage', {
+            from: message.from,
+            text: message.text,
+            createdAt: new Date().getTime()
+        });
     });
 
     socket.on('disconnect', () => {
