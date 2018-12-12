@@ -42,7 +42,7 @@ socket.on('updateUserList', function (users) {
     });
 
     jQuery('#users').html(ol);
-    jQuery('#room-name').append(roomName);
+    jQuery('#room-name').append(roomName); 
 });
 
 socket.on('newMessage', function (message) {
