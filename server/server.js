@@ -23,6 +23,12 @@ io.on('connection', (socket) => {
         let room = (params.room).toLocaleLowerCase();
         if (!isRealString(params.name) || !isRealString(room)) {
             return callback('Name and room name are required');
+        } else {
+            let nameCheck = users.getUserList(room);
+
+            if (nameCheck.includes(params.name)) {
+                return callback('A user with same name already exists.');
+            }
         }
 
         // To join a room
