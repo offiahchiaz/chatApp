@@ -35,12 +35,14 @@ socket.on('disconnect', function () {
 
 socket.on('updateUserList', function (users) {
     let ol = jQuery('<ol></ol>');
+    let roomName = jQuery.deparam(window.location.search).room.toLowerCase();
 
     users.forEach(function (user) {
         ol.append(jQuery('<li></li>').text(user));
     });
 
     jQuery('#users').html(ol);
+    jQuery('#room-name').append(roomName);
 });
 
 socket.on('newMessage', function (message) {
